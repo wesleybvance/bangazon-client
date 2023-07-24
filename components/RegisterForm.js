@@ -6,7 +6,11 @@ import { registerUser } from '../utils/auth'; // Update with path to registerUse
 
 function RegisterForm({ user, updateUser }) {
   const [formData, setFormData] = useState({
-    bio: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    imageUrl: '',
+    username: '',
     uid: user.uid,
   });
 
@@ -18,9 +22,23 @@ function RegisterForm({ user, updateUser }) {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Gamer Bio</Form.Label>
-        <Form.Control as="textarea" name="bio" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
-        <Form.Text className="text-muted">Let other gamers know a little bit about you...</Form.Text>
+        <Form.Label>User Info</Form.Label>
+        {/* FIRST NAME  */}
+        <Form.Control as="textarea" name="firstName" required placeholder="Enter First Name" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+        <Form.Text className="text-muted">First Name</Form.Text>
+        {/* LAST NAME  */}
+        <Form.Control as="textarea" name="lastName" required placeholder="Enter Last Name" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+        <Form.Text className="text-muted">Last Name</Form.Text>
+        {/* ADDRESS  */}
+        <Form.Control as="textarea" name="address" required placeholder="Enter your Address" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+        <Form.Text className="text-muted">Address</Form.Text>
+        {/* PROFILE PIC  */}
+        <Form.Control as="textarea" name="imageUrl" required placeholder="Enter a Profile Photo URL" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+        <Form.Text className="text-muted">Profile Photo URL</Form.Text>
+        {/* USER NAME  */}
+        <Form.Control as="textarea" name="username" required placeholder="Enter your Username" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+        <Form.Text className="text-muted">Username</Form.Text>
+
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit
