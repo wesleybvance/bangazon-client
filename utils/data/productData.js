@@ -22,6 +22,17 @@ const updateProduct = (product) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const deleteProduct = (productId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/products/${productId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(resolve)
+    .catch(reject);
+});
+
 const getSingleProduct = (productId) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/products/${productId}`)
     .then((response) => response.json())
@@ -59,5 +70,5 @@ const postProduct = (uid, product) => new Promise((resolve, reject) => {
 });
 
 export {
-  updateProduct, getAllProducts, getProductsBySellerId,
-},
+  updateProduct, getAllProducts, getProductsBySellerId, getProductsByCategoryId, getSingleProduct, postProduct, deleteProduct,
+};
