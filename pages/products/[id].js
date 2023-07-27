@@ -16,6 +16,6 @@ export default function ProductDetailPage() {
   }, [productId]);
 
   return (
-    <div><ProductDetail product={productDetail} /></div>
+    <div><ProductDetail id={productDetail.id} sellerId={productDetail.seller_id} name={productDetail.name} description={productDetail.description} price={productDetail.price} categoryId={productDetail.category_id} photoUrl={productDetail.photo_url} /></div>
   );
 }
