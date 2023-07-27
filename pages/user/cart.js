@@ -8,7 +8,6 @@ import CartItem from '../../components/products/CartItems';
 export default function Cart() {
   const { user } = useAuth();
 
-  const [order, setOrder] = useState({});
   const [orderProducts, setOrderProducts] = useState([]);
 
   const getAllOrderProducts = (orderId) => {
@@ -16,23 +15,26 @@ export default function Cart() {
   };
 
   useEffect(() => {
-    checkCart(user.uid).then((data) => {
-      setOrder(data);
-      if (order) {
-        console.warn('order ok');
+    checkCart(user.id).then((data) => {
+      if (data[0]) {
+        console.warn(data[0].id);
       } else {
         const newOrder = {
-          customerId: user.uid,
+          customerId: user.id,
         };
-        createOrder(user.uid, newOrder).then((newCart) => setOrder(newCart));
+        createOrder(user.uid, newOrder);
+        checkCart(user.id).then((newData) => {
+          console.warn(newData);
+        });
       }
     });
-    getAllOrderProducts(order.id);
-  });
+    checkCart(user.id).then((data) => getAllOrderProducts(data[0].id));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.uid]);
 
   return (
-    <div>{orderProducts.map((orderProduct) => (
-      <CartItem productId={orderProduct.product_id} />
+    <div>{orderProducts?.map((orderProduct) => (
+      <CartItem key={orderProduct.product_id} productId={orderProduct.product_id} />
     ))}
     </div>
   );

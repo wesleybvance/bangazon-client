@@ -19,6 +19,21 @@ const getSingleUser = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const checkCart = (uid) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/threds_users/${uid}/check_cart`, {
+    method: 'POST',
+    body: JSON.stringify(
+      uid,
+    ),
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then((response) => resolve(response.json()))
+    .catch(reject);
+});
+
 export {
-  getAllUsers, getSingleUser,
+  getAllUsers, getSingleUser, checkCart,
 };
