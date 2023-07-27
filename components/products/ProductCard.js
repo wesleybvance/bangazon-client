@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useAuth } from '../../utils/context/authContext';
 // eslint-disable-next-line import/no-unresolved
 import { deleteProduct } from '../../utils/data/productDATA.JS';
@@ -29,6 +30,10 @@ export default function ProductCard({
     }
   };
 
+  const addToCart = () => {
+    console.warn('added to card');
+  };
+
   const getSeller = (sid) => {
     getSingleUser(sid).then((data) => setSeller(data));
   };
@@ -44,16 +49,18 @@ export default function ProductCard({
   }, [id]);
 
   return (
+
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={photoUrl} />
       <Card.Body>
-        <Card.Title>{name}</Card.Title>
-        <Card.Text>
-          {description}
-        </Card.Text>
+        <Card.Title>
+          <Link passHref href={`/products/${id}`}>{name}</Link>
+        </Card.Title>
+        <Card.Body>{description}</Card.Body>
         <Card.Text>
           {price}
         </Card.Text>
+
         <Card.Text>
           {seller.first_name} {seller.last_name}
         </Card.Text>
@@ -61,13 +68,13 @@ export default function ProductCard({
           {category.name}
         </Card.Text>
         <div>
-          {/* TERNARY FOR EDIT/DELETE BUTTONS TO APPEAR IF USER IS SELLER  */}
+          {/* TERNARY FOR EDIT/DELETE BUTTONS TO APPEAR IF USER IS SELLER, ADD TO CART IF USER IS NOT SELLER  */}
           {(user.id === sellerId) ? (
-            // eslint-disable-next-line no-unused-vars
+          // eslint-disable-next-line no-unused-vars
             <div><Button onClick={(e) => router.replace(`/products/edit/${id}`)} variant="primary">Edit Product</Button>
               <Button onClick={deleteProductCard} variant="primary">Delete Product</Button>
             </div>
-          ) : ''}
+          ) : (<Button onClick={addToCart} variant="primary">Add To Cart</Button>)}
         </div>
       </Card.Body>
     </Card>
