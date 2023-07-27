@@ -1,25 +1,43 @@
-import { Button } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
-import { useAuth } from '../utils/context/authContext';
+import React, { useEffect, useState } from 'react';
+// eslint-disable-next-line import/no-unresolved
+import { getAllProducts } from '../utils/data/productDATA.JS';
+import ProductCard from '../components/products/ProductCard';
 
 function Home() {
-  const { user } = useAuth();
+  const [products, setProducts] = useState([]);
+
+  const getProducts = () => {
+    getAllProducts().then((data) => setProducts(data));
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
+      // style={{
+      //   height: '90vh',
+      //   padding: '30px',
+      //   maxWidth: '400px',
+      //   margin: '0 auto',
+      // }}
     >
-      <h1>Hello {user.fbUser.displayName}! </h1>
-      <p>Your Bio: {user.bio}</p>
-      <p>Click the button below to logout!</p>
-      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-        Sign Out
-      </Button>
+      {products.map((product) => (
+        <div key={`product--${product.id}`} className="product-card">
+          <ProductCard
+            id={product.id}
+            sellerId={product.seller_id}
+            name={product.name}
+            photoUrl={product.photo_url}
+            description={product.description}
+            price={product.price}
+            categoryId={product.category_id}
+            onUpdate={getProducts}
+          />
+        </div>
+      ))}
     </div>
   );
 }
