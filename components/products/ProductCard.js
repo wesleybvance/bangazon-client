@@ -29,6 +29,10 @@ export default function ProductCard({
     }
   };
 
+  const addToCart = () => {
+    console.warn('added to card');
+  };
+
   const getSeller = (sid) => {
     getSingleUser(sid).then((data) => setSeller(data));
   };
@@ -67,7 +71,7 @@ export default function ProductCard({
             <div><Button onClick={(e) => router.replace(`/products/edit/${id}`)} variant="primary">Edit Product</Button>
               <Button onClick={deleteProductCard} variant="primary">Delete Product</Button>
             </div>
-          ) : ''}
+          ) : (<Button onClick={addToCart} variant="primary">Add To Cart</Button>)}
         </div>
       </Card.Body>
     </Card>

@@ -34,11 +34,11 @@ export default function ProductForm({ product }) {
         id: product.id,
         price: product.price,
         name: product.name,
-        photoUrl: product.photoUrl,
+        photoUrl: product.photo_url,
         description: product.description,
         isAvailable: product.isAvailable,
         sellerId: product.sellerId,
-        categoryId: product.categoryId,
+        categoryId: product.category_id,
       });
     }
   }, [product, user]);
@@ -106,7 +106,7 @@ export default function ProductForm({ product }) {
 
         <Form.Select aria-label="Select Category" name="categoryId" value={currentProduct.categoryId} onChange={handleChange}>
           <option>Select Category</option>
-          {categories.map((category) => (<CategorySelection id={category.id} name={category.name} />))}
+          {categories.map((category) => (<CategorySelection key={category.id} id={category.id} name={category.name} />))}
         </Form.Select>
 
         <FloatingLabel
@@ -128,11 +128,11 @@ ProductForm.propTypes = {
     id: PropTypes.number,
     price: PropTypes.number,
     name: PropTypes.string,
-    photoUrl: PropTypes.string,
+    photo_url: PropTypes.string,
     description: PropTypes.string,
     isAvailable: PropTypes.bool,
     sellerId: PropTypes.number,
-    categoryId: PropTypes.number,
+    category_id: PropTypes.number,
   }),
 };
 
