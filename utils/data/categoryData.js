@@ -12,4 +12,13 @@ const getAllCategories = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export default getAllCategories;
+const getSingleCategory = (categoryId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/categories/${categoryId}`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
+export {
+  getAllCategories, getSingleCategory,
+};
