@@ -36,8 +36,8 @@ export default function ProductForm({ product }) {
         name: product.name,
         photoUrl: product.photo_url,
         description: product.description,
-        isAvailable: product.isAvailable,
-        sellerId: product.sellerId,
+        isAvailable: product.is_available,
+        sellerId: product.seller_id,
         categoryId: product.category_id,
       });
     }
@@ -56,7 +56,7 @@ export default function ProductForm({ product }) {
     if (product.id) {
       const updatedProduct = {
         id: product.id,
-        sellerId: product.sellerId,
+        sellerId: product.seller_id,
         price: currentProduct.price,
         name: currentProduct.name,
         photoUrl: currentProduct.photoUrl,
@@ -89,11 +89,11 @@ export default function ProductForm({ product }) {
           label="Product Name"
           className="mb-3"
         >
-          <Form.Control type="text" name="name" value={currentProduct.name} onChange={handleChange} />
+          <Form.Control type="text" required name="name" value={currentProduct.name} onChange={handleChange} />
         </FloatingLabel>
 
         <FloatingLabel controlId="floatingInput" label="Description" className="mb-3">
-          <Form.Control as="textarea" rows={3} name="description" value={currentProduct.description} onChange={handleChange} />
+          <Form.Control as="textarea" rows={3} required name="description" value={currentProduct.description} onChange={handleChange} />
         </FloatingLabel>
 
         <FloatingLabel
@@ -101,10 +101,10 @@ export default function ProductForm({ product }) {
           label="Photo URL"
           className="mb-3"
         >
-          <Form.Control type="text" name="photoUrl" value={currentProduct.photoUrl} onChange={handleChange} />
+          <Form.Control type="text" required name="photoUrl" value={currentProduct.photoUrl} onChange={handleChange} />
         </FloatingLabel>
 
-        <Form.Select aria-label="Select Category" name="categoryId" value={currentProduct.categoryId} onChange={handleChange}>
+        <Form.Select aria-label="Select Category" required name="categoryId" value={currentProduct.categoryId} onChange={handleChange}>
           <option>Select Category</option>
           {categories.map((category) => (<CategorySelection key={category.id} id={category.id} name={category.name} />))}
         </Form.Select>
@@ -114,7 +114,7 @@ export default function ProductForm({ product }) {
           label="Price"
           className="mt-3"
         >
-          <Form.Control type="number" name="price" value={currentProduct.price} onChange={handleChange} />
+          <Form.Control type="number" required name="price" value={currentProduct.price} onChange={handleChange} />
         </FloatingLabel>
 
         <Button className="mt-3" type="submit">List Product</Button>
@@ -130,8 +130,8 @@ ProductForm.propTypes = {
     name: PropTypes.string,
     photo_url: PropTypes.string,
     description: PropTypes.string,
-    isAvailable: PropTypes.bool,
-    sellerId: PropTypes.number,
+    is_available: PropTypes.bool,
+    seller_id: PropTypes.number,
     category_id: PropTypes.number,
   }),
 };
