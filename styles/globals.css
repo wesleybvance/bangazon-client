@@ -21,8 +21,24 @@ body {
   background-color: #88effd;
 }
 
+/* Basic Classes  */
+.page-center {
+  align-self: center;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 /* Product Detail Page  */
 
 .product-detail-img {
   max-height: 500px;
+}
+
+/* User Profile Page  */
+.user-profile-pic {
+  width: 50%;
 }
