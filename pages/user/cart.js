@@ -17,25 +17,22 @@ export default function Cart() {
   useEffect(() => {
     checkCart(user.id).then((data) => {
       if (data[0]) {
-        console.warn(data[0].id);
+        console.warn(data);
       } else {
         const newOrder = {
           customerId: user.id,
         };
         createOrder(user.uid, newOrder);
-        checkCart(user.id).then((newData) => {
-          console.warn(newData);
-        });
       }
     });
     checkCart(user.id).then((data) => getAllOrderProducts(data[0].id));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.uid]);
+  }, []);
 
   return (
-    <div>{orderProducts?.map((orderProduct) => (
-      <CartItem key={orderProduct.product_id} productId={orderProduct.product_id} />
-    ))}
+    <div>{(orderProducts[0]) ? (orderProducts.map((orderProduct) => (
+      <CartItem key={orderProduct.id} orderProduct={orderProduct} />
+    ))) : (<h1>You have no products in your cart.</h1>)}
     </div>
   );
 }

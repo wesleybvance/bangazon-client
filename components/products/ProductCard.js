@@ -10,6 +10,16 @@ import { deleteProduct } from '../../utils/data/productDATA.JS';
 import { getSingleUser } from '../../utils/data/thredsUserData';
 import { getSingleCategory } from '../../utils/data/categoryData';
 
+const initialState = {
+  id: 1,
+  price: 0,
+  name: '',
+  photoUrl: '',
+  description: '',
+  isAvailable: true,
+  sellerId: 1,
+  categoryId: 1,
+};
 export default function ProductCard({
   id,
   sellerId,
@@ -82,11 +92,21 @@ export default function ProductCard({
 }
 
 ProductCard.propTypes = {
-  id: PropTypes.number.isRequired,
-  sellerId: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  categoryId: PropTypes.number.isRequired,
-  photoUrl: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  sellerId: PropTypes.number,
+  name: PropTypes.string,
+  description: PropTypes.string,
+  price: PropTypes.number,
+  categoryId: PropTypes.number,
+  photoUrl: PropTypes.string,
+};
+
+ProductCard.defaultProps = {
+  id: initialState.id,
+  sellerId: initialState.sellerId,
+  name: initialState.name,
+  description: initialState.description,
+  price: initialState.price,
+  categoryId: initialState.categoryId,
+  photoUrl: initialState.photoUrl,
 };
