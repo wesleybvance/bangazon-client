@@ -16,14 +16,29 @@ const updateOrder = (order) => new Promise((resolve, reject) => {
 });
 
 const getSingleOrder = (orderId) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/products/${orderId}`)
+  fetch(`${clientCredentials.databaseURL}/orders/${orderId}`)
     .then((response) => response.json())
     .then(resolve)
     .catch(reject);
 });
 
 const createOrder = (uid, order) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/products`, {
+  fetch(`${clientCredentials.databaseURL}/orders`, {
+    method: 'POST',
+    body: JSON.stringify(
+      order,
+    ),
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then((response) => resolve(response.json()))
+    .catch(reject);
+});
+
+const calculateTotal = (order) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/orders/${order.id}/calculate_total`, {
     method: 'POST',
     body: JSON.stringify(
       order,
@@ -38,5 +53,5 @@ const createOrder = (uid, order) => new Promise((resolve, reject) => {
 });
 
 export {
-  updateOrder, getSingleOrder, createOrder,
+  updateOrder, getSingleOrder, createOrder, calculateTotal,
 };
