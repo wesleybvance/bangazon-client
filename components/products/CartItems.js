@@ -13,7 +13,8 @@ export default function CartItem({ productId }) {
 
   useEffect(() => {
     getProduct(productId);
-  }, [productId]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <><ProductCard
