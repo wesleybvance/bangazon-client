@@ -7,8 +7,10 @@ import Link from 'next/link';
 import { useAuth } from '../../utils/context/authContext';
 // eslint-disable-next-line import/no-unresolved
 import { deleteProduct } from '../../utils/data/productDATA.JS';
-import { getSingleUser } from '../../utils/data/thredsUserData';
+import { checkCart, getSingleUser } from '../../utils/data/thredsUserData';
 import { getSingleCategory } from '../../utils/data/categoryData';
+import { getOrderProductsByOrderId } from '../../utils/data/orderProductData';
+import { createOrder } from '../../utils/data/orderData';
 
 const initialState = {
   id: 1,
@@ -33,6 +35,7 @@ export default function ProductCard({
   const { user } = useAuth();
   const [seller, setSeller] = useState({});
   const [category, setCategory] = useState({});
+  const [orderProducts, setOrderProducts] = useState([]);
 
   const deleteProductCard = () => {
     if (window.confirm('Do you want to remove this product listing?')) {
@@ -52,9 +55,25 @@ export default function ProductCard({
     getSingleCategory(cid).then((data) => setCategory(data));
   };
 
+  const getAllOrderProducts = (orderId) => {
+    getOrderProductsByOrderId(orderId).then((data) => setOrderProducts(data));
+    console.warn(orderProducts);
+  };
+
   useEffect(() => {
     getSeller(sellerId);
     getCategory(categoryId);
+    checkCart(user.id).then((data) => {
+      if (data[0]) {
+        console.warn(data);
+      } else {
+        const newOrder = {
+          customerId: user.id,
+        };
+        createOrder(user.uid, newOrder);
+      }
+    });
+    checkCart(user.id).then((data) => getAllOrderProducts(data[0].id));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 

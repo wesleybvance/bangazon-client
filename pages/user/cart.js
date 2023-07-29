@@ -31,7 +31,7 @@ export default function Cart() {
 
   return (
     <div>{(orderProducts[0]) ? (orderProducts.map((orderProduct) => (
-      <CartItem key={orderProduct.id} orderProduct={orderProduct} />
+      <CartItem key={orderProduct.id} productId={orderProduct.product_id} />
     ))) : (<h1>You have no products in your cart.</h1>)}
     </div>
   );
